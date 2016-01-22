@@ -50,11 +50,7 @@ public class Connect extends AppCompatActivity {
         connBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    makeAConnect();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
             }
         });
         // ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -62,45 +58,7 @@ public class Connect extends AppCompatActivity {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
-    private void makeAConnect() throws IOException{
-        TextView tag = (TextView)findViewById(R.id.responseText);
-        String request = "http://128.199.158.8:3000/connect";
-        String charset = "UTF-8";
-        StringBuilder result = new StringBuilder();
-        URLConnection connection = new URL(request).openConnection();
-        InputStream in = new BufferedInputStream(connection.getInputStream());
-//        String res = getStringFromInputStream(in);
-//        tag.setText(res);
-    }
 
-    private static String getStringFromInputStream(InputStream is) {
-
-        BufferedReader br = null;
-        StringBuilder sb = new StringBuilder();
-
-        String line;
-        try {
-
-            br = new BufferedReader(new InputStreamReader(is));
-            while ((line = br.readLine()) != null) {
-                sb.append(line);
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        return sb.toString();
-
-    }
 
     @Override
     public void onStart() {
