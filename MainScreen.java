@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
@@ -25,24 +26,18 @@ public class MainScreen extends AppCompatActivity {
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
-    private Button cptBtn;
+    private Button connBtn;
+    private EditText robotAddress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
-        cptBtn = (Button) findViewById(R.id.cptBtn);
-        final Toast cptComplete = Toast.makeText(this, "The image has been captured!", Toast.LENGTH_SHORT);
-        cptBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cptComplete.show();
-            }
-        });
+        connBtn = (Button)findViewById(R.id.btnConn);
+        robotAddress = (EditText)findViewById(R.id.ipAddr);
+
     }
 
     @Override
