@@ -37,7 +37,13 @@ public class MainScreen extends AppCompatActivity {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
         connBtn = (Button)findViewById(R.id.btnConn);
         robotAddress = (EditText)findViewById(R.id.ipAddr);
-
+        connBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent conn = new Intent(getApplicationContext(), Connect.class);
+                startActivity(conn);
+            }
+        });
     }
 
     @Override
