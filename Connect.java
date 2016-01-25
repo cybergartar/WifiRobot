@@ -52,6 +52,14 @@ public class Connect extends AppCompatActivity {
 
     }
 
+    protected class httpConnection extends AsyncTask<String, Integer, String>{
+        @Override
+        protected String doInBackground(String... params) {
+            String result = "";
+
+        }
+    }
+
     @Override
     public void onStart() {
         super.onStart();
