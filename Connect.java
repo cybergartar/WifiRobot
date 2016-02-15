@@ -3,7 +3,12 @@ package kmitl.esl.ultimate.wifirobot;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,43 +39,67 @@ public class Connect extends AppCompatActivity {
      */
     private GoogleApiClient client;
     private static final String USER_AGENT = "Mozilla/5.0";
-
+    String address = "";
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.connect_main_screen);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+        Bundle extras = getIntent().getExtras();
+
+        if(extras != null){
+            address = extras.getString("inpAddress");
+        }
         Button upBtn = (Button)findViewById(R.id.upBtn);
         Button downBtn = (Button)findViewById(R.id.downBtn);
         Button leftBtn = (Button)findViewById(R.id.leftBtn);
         Button rightBtn = (Button)findViewById(R.id.rightBtn);
-        upBtn.setOnClickListener(new View.OnClickListener() {
+        final String finalAddress = address;
+        upBtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                new httpConnection().execute("http://128.199.158.8:3000/connect/up");
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()){
+                    case MotionEvent.ACTION_DOWN: new httpConnection().execute("http://"+ finalAddress +":3000/connect/up/1");   break;
+                    case MotionEvent.ACTION_UP: new httpConnection().execute("http://"+ finalAddress +":3000/connect/up/0"); break;
+                }
+                return true;
             }
         });
-        downBtn.setOnClickListener(new View.OnClickListener() {
+        downBtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                new httpConnection().execute("http://128.199.158.8:3000/connect/down");
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()){
+                    case MotionEvent.ACTION_DOWN: new httpConnection().execute("http://"+ finalAddress +":3000/connect/down/1");   break;
+                    case MotionEvent.ACTION_UP: new httpConnection().execute("http://"+ finalAddress +":3000/connect/down/0"); break;
+                }
+                return true;
             }
         });
-        leftBtn.setOnClickListener(new View.OnClickListener() {
+        leftBtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                new httpConnection().execute("http://128.199.158.8:3000/connect/left");
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()){
+                    case MotionEvent.ACTION_DOWN: new httpConnection().execute("http://"+ finalAddress +":3000/connect/left/1");   break;
+                    case MotionEvent.ACTION_UP: new httpConnection().execute("http://"+ finalAddress +":3000/connect/left/0"); break;
+                }
+                return true;
             }
         });
-        rightBtn.setOnClickListener(new View.OnClickListener() {
+        rightBtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                new httpConnection().execute("http://128.199.158.8:3000/connect/right");
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()){
+                    case MotionEvent.ACTION_DOWN: new httpConnection().execute("http://"+ finalAddress +":3000/connect/right/1");   break;
+                    case MotionEvent.ACTION_UP: new httpConnection().execute("http://"+ finalAddress +":3000/connect/right/0"); break;
+                }
+                return true;
             }
         });
-
     }
 
     protected class httpConnection extends AsyncTask<String, Integer, String>{
@@ -142,6 +171,29 @@ public class Connect extends AppCompatActivity {
                 Uri.parse("android-app://kmitl.esl.ultimate.wifirobot/http/host/path")
         );
         AppIndex.AppIndexApi.start(client, viewAction);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main_screen, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.menu_reconnect) {
+            new httpConnection().execute("http://"+ address +":3000/test");
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
