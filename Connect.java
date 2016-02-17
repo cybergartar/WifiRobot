@@ -1,5 +1,8 @@
 package kmitl.esl.ultimate.wifirobot;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -150,6 +153,14 @@ public class Connect extends AppCompatActivity {
         protected void onPostExecute(String parsedString) {
             TextView opt = (TextView)findViewById(R.id.responseTest);
             opt.setText(parsedString);
+
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+            ProgressDialog dialog = ProgressDialog.show(Connect.this, "",
+                    "Please wait...", true);
         }
     }
 
@@ -190,6 +201,23 @@ public class Connect extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.menu_reconnect) {
             new httpConnection().execute("http://"+ address +":3000/test");
+            return true;
+        }
+        else if (id == R.id.menu_shutdown){
+            new AlertDialog.Builder(this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle("Turning off robot")
+                    .setMessage("Are you sure you want to turn off robot?")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            new httpConnection().execute("http://" + address + ":3000/shutdown");
+                        }
+
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
             return true;
         }
 
