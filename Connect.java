@@ -106,6 +106,7 @@ public class Connect extends AppCompatActivity {
     }
 
     protected class httpConnection extends AsyncTask<String, Integer, String>{
+        ProgressDialog dialog;
         @Override
         protected String doInBackground(String... urls) {
             String parsedString="";
@@ -153,14 +154,16 @@ public class Connect extends AppCompatActivity {
         protected void onPostExecute(String parsedString) {
             TextView opt = (TextView)findViewById(R.id.responseTest);
             opt.setText(parsedString);
+            dialog.dismiss();
 
         }
 
         @Override
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
-            ProgressDialog dialog = ProgressDialog.show(Connect.this, "",
+            dialog = ProgressDialog.show(Connect.this, "",
                     "Please wait...", true);
+
         }
     }
 
