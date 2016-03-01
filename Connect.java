@@ -3,10 +3,10 @@ package kmitl.esl.ultimate.wifirobot;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -14,7 +14,6 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.gms.appindexing.Action;
@@ -35,7 +34,6 @@ import java.net.URLConnection;
  */
 
 public class Connect extends AppCompatActivity {
-//    Button connBtn = (Button) findViewById(R.id.connBtn);
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -50,8 +48,6 @@ public class Connect extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
         Bundle extras = getIntent().getExtras();
 
@@ -222,6 +218,10 @@ public class Connect extends AppCompatActivity {
                     .setNegativeButton("No", null)
                     .show();
             return true;
+        }
+        else if(id == R.id.menu_viewimages){
+            Intent viewImg = new Intent(getApplicationContext(), ViewImages.class);
+            startActivity(viewImg);
         }
 
         return super.onOptionsItemSelected(item);
