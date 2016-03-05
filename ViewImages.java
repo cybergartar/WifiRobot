@@ -27,6 +27,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 
 
 /**
@@ -38,15 +39,22 @@ public class ViewImages extends AppCompatActivity {
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
+
     private GoogleApiClient client;
     private static final String USER_AGENT = "Mozilla/5.0";
-    String address = "";
+    String IMGS[] = {
+            "https://scontent.fbkk1-1.fna.fbcdn.net/hphotos-xpf1/v/t1.0-9/12799132_999473050132284_6324695365229718601_n.jpg?oh=43d7f431c50f001b79c5a6833e5eb0f3&oe=5798C2CE",
+            "https://scontent.fbkk1-1.fna.fbcdn.net/hphotos-xlf1/v/t1.0-9/1927760_999385286807727_4935019582717207141_n.jpg?oh=41bc92ca32e908cff4ec93f713fbaf9c&oe=5766B9C7",
+            "https://scontent.fbkk1-1.fna.fbcdn.net/hphotos-xft1/v/t1.0-9/12744175_10204946308052352_1413629545025496902_n.jpg?oh=50e0b6e6db0577899fbe983972c83e4a&oe=574B4DDC",
+            "https://scontent.fbkk1-1.fna.fbcdn.net/hphotos-xpl1/v/t1.0-9/12718072_10204929888521874_3462539950105664708_n.jpg?oh=088f29fcdd0cae4f34d5d9189c79ce0e&oe=57619950"
+    };
+    ArrayList<ImageModel> data = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_images);
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
-
 
     }
 
@@ -69,6 +77,14 @@ public class ViewImages extends AppCompatActivity {
                 Uri.parse("android-app://kmitl.esl.ultimate.wifirobot/http/host/path")
         );
         AppIndex.AppIndexApi.start(client, viewAction);
+
+        for (int i = 0; i < IMGS.length; i++) {
+//  Adding images & title to POJO class and storing in Array (our data)
+            ImageModel imageModel = new ImageModel();
+            imageModel.setName("Image " + i);
+            imageModel.setUrl(IMGS[i]);
+            data.add(imageModel);
+        }
     }
 
 
