@@ -150,7 +150,6 @@ public class Connect extends AppCompatActivity {
         protected void onPostExecute(String parsedString) {
             TextView opt = (TextView)findViewById(R.id.responseTest);
             opt.setText(parsedString);
-            dialog.dismiss();
 
         }
 

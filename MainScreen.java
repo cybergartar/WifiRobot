@@ -54,16 +54,14 @@ public class MainScreen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 address = robotAddress.getText().toString();
-                /*if(address.length()==0){
+                if(address.length()==0){
                     Toast toast = Toast.makeText(context, "Invalid Address", Toast.LENGTH_SHORT);
                     toast.show();
                 }
                 else {
                         new testConnection().execute(address);
-                }*/
-                Intent conn = new Intent(getApplicationContext(), Connect.class);
-                conn.putExtra("inpAddress", address);
-                startActivity(conn);
+                }
+
             }
         });
     }
