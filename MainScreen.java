@@ -50,6 +50,7 @@ public class MainScreen extends AppCompatActivity {
         final Context context = getApplicationContext();
         connBtn = (Button)findViewById(R.id.btnConn);
         robotAddress = (EditText)findViewById(R.id.ipAddr);
+        robotAddress.setText("128.199.158.8");
         connBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
