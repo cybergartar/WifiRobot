@@ -34,6 +34,8 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 
 /**
@@ -203,6 +205,12 @@ public class Connect extends AppCompatActivity {
     }
 
     class DownloadFileFromURL extends AsyncTask<String, String, String> {
+        // generate file name by timestamp
+        Calendar c = Calendar.getInstance();
+
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH-mm-ss");
+        String formattedDate = df.format(c.getTime());
+        String filename = formattedDate;
 
         /**
          * Before starting background thread Show Progress Bar Dialog
@@ -235,7 +243,7 @@ public class Connect extends AppCompatActivity {
                 // Output stream
                 OutputStream output = new FileOutputStream(Environment
                         .getExternalStorageDirectory().toString()
-                        + "/WifiRobotImages" + "/1.jpg");
+                        + "/WifiRobotImages" + "/" + filename + ".jpg");
 
                 byte data[] = new byte[1024];
 
@@ -280,7 +288,8 @@ public class Connect extends AppCompatActivity {
         protected void onPostExecute(String file_url) {
             // dismiss the dialog after the file was downloaded
             dismissDialog(progress_bar_type);
-
+            Toast complete = Toast.makeText(Connect.this, "Captured image!\n" + "File name: " + filename + ".jpg", Toast.LENGTH_LONG);
+            complete.show();
         }
 
     }
