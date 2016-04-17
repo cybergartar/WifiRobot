@@ -54,7 +54,6 @@ public class Connect extends AppCompatActivity {
     private ProgressDialog pDialog;
     public static final int progress_bar_type = 0;
 
-    private static String file_url = "http://128.199.158.8:3000/capture";
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -77,6 +76,8 @@ public class Connect extends AppCompatActivity {
         Button cptBtn = (Button)findViewById(R.id.cptBtn);
 
         final String finalAddress = address;
+        final String file_url = "http://" + finalAddress + ":3000/capture";
+
         upBtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
