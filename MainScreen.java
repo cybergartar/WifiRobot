@@ -60,7 +60,10 @@ public class MainScreen extends AppCompatActivity {
                     toast.show();
                 }
                 else {
-                        new testConnection().execute(address);
+                        //new testConnection().execute(address);
+                    Intent conn = new Intent(getApplicationContext(), Connect.class);
+                    conn.putExtra("inpAddress", address);
+                    startActivity(conn);
                 }
 
             }
