@@ -1,6 +1,7 @@
 package kmitl.esl.ultimate.wifirobot;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
@@ -13,14 +14,25 @@ public class RecyclerImageAdapter extends RecyclerView.Adapter<RecyclerImageAdap
     private Context mContext;
     private String[] filePath;
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public ImageView preview;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this);
             preview = (ImageView) itemView.findViewById(R.id.imagePreview);
         }
+
+        @Override
+        public void onClick(View v) {
+            Intent i = new Intent(mContext, SingleImage.class);
+            i.putExtra("filePath", filePath);
+            int pos = getAdapterPosition();
+            i.putExtra("position", pos);
+            mContext.startActivity(i);
+        }
     }
+
 
     public RecyclerImageAdapter(Context context, String[] fileInput){
         mContext = context;
@@ -29,8 +41,8 @@ public class RecyclerImageAdapter extends RecyclerView.Adapter<RecyclerImageAdap
 
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.image_recycler, parent, false);
-
         ViewHolder viewHolder = new ViewHolder(view);
+
         return viewHolder;
     }
 
@@ -48,4 +60,7 @@ public class RecyclerImageAdapter extends RecyclerView.Adapter<RecyclerImageAdap
         else
             return 0;
     }
-}
+
+};
+
+
