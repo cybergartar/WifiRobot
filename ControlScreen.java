@@ -37,18 +37,7 @@ import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-
-/**
- * Created by ulTimate on 1/6/2016.
- */
-
-public class Connect extends AppCompatActivity {
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
-    private static final String USER_AGENT = "Mozilla/5.0";
+public class ControlScreen extends AppCompatActivity {
     String address = "";
 
     private ProgressDialog pDialog;
@@ -62,7 +51,6 @@ public class Connect extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
         Bundle extras = getIntent().getExtras();
 
         if(extras != null){
@@ -182,7 +170,7 @@ public class Connect extends AppCompatActivity {
         @Override
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
-            dialog = ProgressDialog.show(Connect.this, "",
+            dialog = ProgressDialog.show(ControlScreen.this, "",
                     "Please wait...", true);
 
         }
@@ -289,7 +277,7 @@ public class Connect extends AppCompatActivity {
         protected void onPostExecute(String file_url) {
             // dismiss the dialog after the file was downloaded
             dismissDialog(progress_bar_type);
-            Toast complete = Toast.makeText(Connect.this, "Captured image!\n" + "File name: " + filename + ".jpg", Toast.LENGTH_LONG);
+            Toast complete = Toast.makeText(ControlScreen.this, "Captured image!\n" + "File name: " + filename + ".jpg", Toast.LENGTH_LONG);
             complete.show();
         }
 
@@ -298,21 +286,6 @@ public class Connect extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "Connect Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app deep link URI is correct.
-                Uri.parse("android-app://kmitl.esl.ultimate.wifirobot/http/host/path")
-        );
-        AppIndex.AppIndexApi.start(client, viewAction);
     }
 
     @Override
@@ -362,20 +335,5 @@ public class Connect extends AppCompatActivity {
     @Override
     public void onStop() {
         super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "Connect Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app deep link URI is correct.
-                Uri.parse("android-app://kmitl.esl.ultimate.wifirobot/http/host/path")
-        );
-        AppIndex.AppIndexApi.end(client, viewAction);
-        client.disconnect();
     }
 }
