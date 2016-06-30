@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">WifiRobot</string>
+    <string name="menu_reconnect">Reconnect</string>
+    <string name="upSym">^</string>
+    <string name="leftSym">&lt;</string>
+    <string name="rightSym">&gt;</string>
+    <string name="downSym">V</string>
+    <string name="capture">Capture</string>
+    <string name="LogoDesc">LabLogo</string>
+    <string name="robotandul">Wifi Robot by ulTimate1D</string>
+    <string name="shutdown">Turn off robot</string>
+    <string name="viewimages">View Saved Images</string>
+    <string name="savedImg">Saved Images</string>
+</resources>

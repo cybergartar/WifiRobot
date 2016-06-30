@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="kmitl.esl.ultimate.wifirobot.MainScreen"
+    tools:showIn="@layout/activity_main_screen"
+    android:id="@+id/z">
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/logoView"
+        android:src="@mipmap/logo"
+        android:contentDescription="@string/LogoDesc"
+        app:layout_constraintRight_toRightOf="@+id/z"
+        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintBottom_toBottomOf="@+id/descText"
+        android:layout_marginBottom="23dp"
+        tools:layout_constraintBottom_creator="1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/descText"
+        android:text="@string/robotandul"
+        android:textSize="20sp"
+        android:textColor="#000000"
+        app:layout_constraintTop_toTopOf="@+id/z"
+        android:layout_marginTop="179dp"
+        tools:layout_constraintTop_creator="1"
+        app:layout_constraintRight_toRightOf="@+id/logoView"
+        android:layout_marginRight="1dp"
+        android:layout_marginEnd="1dp"
+        tools:layout_constraintRight_creator="1" />
+
+    <EditText
+        android:layout_width="333dp"
+        android:layout_height="56dp"
+        android:id="@+id/ipAddr"
+        android:inputType="text"
+        android:textIsSelectable="false"
+        android:hint="Robot&apos;s Address"
+        app:layout_constraintLeft_toLeftOf="@+id/z"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintTop_toTopOf="@+id/z"
+        tools:layout_constraintTop_creator="1"
+        app:layout_constraintRight_toRightOf="@+id/z"
+        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/z"
+        tools:layout_constraintBottom_creator="1" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CONNECT"
+        android:id="@+id/btnConn"
+        android:background="#ff8c00"
+        app:layout_constraintLeft_toLeftOf="@+id/z"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintTop_toBottomOf="@+id/ipAddr"
+        android:layout_marginTop="40dp"
+        tools:layout_constraintTop_creator="1"
+        app:layout_constraintRight_toRightOf="@+id/z"
+        tools:layout_constraintRight_creator="1" />
+</android.support.constraint.ConstraintLayout>

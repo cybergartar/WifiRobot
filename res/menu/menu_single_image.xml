@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="kmitl.esl.ultimate.wifirobot.MainScreen">
+    <item
+        android:id="@+id/menu_another_app"
+        android:orderInCategory="100"
+        android:title="Open in another app"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_delete_image"
+        android:orderInCategory="100"
+        android:title="Delete..."
+        app:showAsAction="never" />
+</menu>
