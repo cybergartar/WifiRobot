@@ -44,3 +44,7 @@ google-services.json
 # androidTest and test folder
 androidTest/
 test/
+.idea/
+gradle/
+gradlew
+gradlew.bat
