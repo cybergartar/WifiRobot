@@ -48,8 +48,6 @@ public class ControlScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.connect_main_screen);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         Bundle extras = getIntent().getExtras();
 
@@ -277,7 +275,7 @@ public class ControlScreen extends AppCompatActivity {
         protected void onPostExecute(String file_url) {
             // dismiss the dialog after the file was downloaded
             dismissDialog(progress_bar_type);
-            Toast complete = Toast.makeText(ControlScreen.this, "Captured image!\n" + "File name: " + filename + ".jpg", Toast.LENGTH_LONG);
+            Toast complete = Toast.makeText(ControlScreen.this, "Captured image!\n" + "File name: " + filename + ".jpg", Toast.LENGTH_SHORT);
             complete.show();
         }
 
@@ -336,4 +334,5 @@ public class ControlScreen extends AppCompatActivity {
     public void onStop() {
         super.onStop();
     }
+
 }
