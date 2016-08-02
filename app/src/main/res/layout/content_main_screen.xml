@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="kmitl.esl.ultimate.wifirobot.MainScreen"
+    tools:context="kmitl.esl.ultimate.wifirobot.LoginScreen"
     tools:showIn="@layout/activity_main_screen"
     android:id="@+id/z">
 
@@ -39,25 +39,6 @@
         android:layout_marginEnd="1dp"
         tools:layout_constraintRight_creator="1" />
 
-    <EditText
-        android:layout_width="333dp"
-        android:layout_height="56dp"
-        android:id="@+id/ipAddr"
-        android:inputType="text"
-        android:textIsSelectable="false"
-        android:hint="Robot&apos;s Address"
-        app:layout_constraintLeft_toLeftOf="@+id/z"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintTop_toTopOf="@+id/z"
-        tools:layout_constraintTop_creator="1"
-        app:layout_constraintRight_toRightOf="@+id/z"
-        android:layout_marginRight="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/z"
-        tools:layout_constraintBottom_creator="1" />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -66,9 +47,26 @@
         android:background="#ff8c00"
         app:layout_constraintLeft_toLeftOf="@+id/z"
         tools:layout_constraintLeft_creator="1"
-        app:layout_constraintTop_toBottomOf="@+id/ipAddr"
-        android:layout_marginTop="40dp"
-        tools:layout_constraintTop_creator="1"
         app:layout_constraintRight_toRightOf="@+id/z"
-        tools:layout_constraintRight_creator="1" />
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintTop_toBottomOf="@+id/ipAddr"
+        android:layout_marginTop="40dp" />
+
+    <AutoCompleteTextView
+        android:layout_width="333dp"
+        android:layout_height="56dp"
+        android:id="@+id/ipAddr"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toTopOf="@+id/z"
+        app:layout_constraintBottom_toBottomOf="@+id/z"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="@+id/z"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="@+id/z"
+        android:layout_marginRight="16dp"
+        android:dropDownHeight="wrap_content"
+        android:contentDescription="Robot&apos;s Address"
+        android:hint="Robot&apos;s Address" />
 </android.support.constraint.ConstraintLayout>

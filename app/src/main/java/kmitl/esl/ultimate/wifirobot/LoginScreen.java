@@ -2,13 +2,19 @@ package kmitl.esl.ultimate.wifirobot;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -20,21 +26,43 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.logging.Logger;
 
 public class LoginScreen extends AppCompatActivity {
 
     private Button connBtn;
-    private EditText robotAddress;
+    private AutoCompleteTextView robotAddress;
     String address = "";
     final Context context = this;
-
-    @Override
+    SharedPreferences sp;
+    SharedPreferences.Editor editor;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
         connBtn = (Button)findViewById(R.id.btnConn);
-        robotAddress = (EditText)findViewById(R.id.ipAddr);
-        robotAddress.setText("128.199.158.8");
+
+        sp = getSharedPreferences("allIPs", Context.MODE_PRIVATE);
+        editor = sp.edit();
+        final Set<String> nothing = new HashSet<String>();
+        nothing.add("");
+        final Set<String> ip = sp.getStringSet("ips", nothing);
+        String[] ips = {};
+
+        if(ip.size() != 0){
+            ips = ip.toArray(new String[ip.size()]);
+        }
+
+        Log.i("IPS", Arrays.toString(ips));
+
+        robotAddress = (AutoCompleteTextView) findViewById(R.id.ipAddr);
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, ips);
+
+        robotAddress.setAdapter(adapter);
+        robotAddress.setThreshold(1);
+
         connBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,9 +72,19 @@ public class LoginScreen extends AppCompatActivity {
                     toast.show();
                 }
                 else {
-                    Intent conn = new Intent(context, ControlScreen.class);
-                    conn.putExtra("inpAddress", address);
-                    startActivity(conn);
+                    if(!ip.contains(address)){
+                        Log.i("ADD ADDRESS", address);
+                        editor.clear();
+                        ip.add(address);
+                        editor.putStringSet("ips", ip);
+                        if(editor.commit()){
+                            Log.i("ADDRESULT", "OK" + ip.size());
+                        }
+                        else{
+                            Log.i("ADDRESULT", "FAILED"+ ip.size());
+                        }
+                    }
+                    new testConnection().execute(address);
                 }
 
             }
@@ -59,7 +97,7 @@ public class LoginScreen extends AppCompatActivity {
             String parsedString="";
             try {
 
-                URL url = new URL("http://"+urls[0]+":3000/test");
+                URL url = new URL("http://"+urls[0]+":1381/test");
                 URLConnection conn = url.openConnection();
 
                 HttpURLConnection httpConn = (HttpURLConnection) conn;

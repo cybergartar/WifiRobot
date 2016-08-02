@@ -62,14 +62,14 @@ public class ControlScreen extends AppCompatActivity {
         Button cptBtn = (Button)findViewById(R.id.cptBtn);
 
         final String finalAddress = address;
-        final String file_url = "http://" + finalAddress + ":3000/capture";
+        final String file_url = "http://" + finalAddress + ":1381/capture";
 
         upBtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()){
-                    case MotionEvent.ACTION_DOWN: new httpConnection().execute("http://"+ finalAddress +":3000/connect/up/1");   break;
-                    case MotionEvent.ACTION_UP: new httpConnection().execute("http://"+ finalAddress +":3000/connect/up/0"); break;
+                    case MotionEvent.ACTION_DOWN: new httpConnection().execute("http://"+ finalAddress +":1381/connect/up/1");   break;
+                    case MotionEvent.ACTION_UP: new httpConnection().execute("http://"+ finalAddress +":1381/connect/up/0"); break;
                 }
                 return true;
             }
@@ -78,8 +78,8 @@ public class ControlScreen extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()){
-                    case MotionEvent.ACTION_DOWN: new httpConnection().execute("http://"+ finalAddress +":3000/connect/down/1");   break;
-                    case MotionEvent.ACTION_UP: new httpConnection().execute("http://"+ finalAddress +":3000/connect/down/0"); break;
+                    case MotionEvent.ACTION_DOWN: new httpConnection().execute("http://"+ finalAddress +":1381/connect/down/1");   break;
+                    case MotionEvent.ACTION_UP: new httpConnection().execute("http://"+ finalAddress +":1381/connect/down/0"); break;
                 }
                 return true;
             }
@@ -88,8 +88,8 @@ public class ControlScreen extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()){
-                    case MotionEvent.ACTION_DOWN: new httpConnection().execute("http://"+ finalAddress +":3000/connect/left/1");   break;
-                    case MotionEvent.ACTION_UP: new httpConnection().execute("http://"+ finalAddress +":3000/connect/left/0"); break;
+                    case MotionEvent.ACTION_DOWN: new httpConnection().execute("http://"+ finalAddress +":1381/connect/left/1");   break;
+                    case MotionEvent.ACTION_UP: new httpConnection().execute("http://"+ finalAddress +":1381/connect/left/0"); break;
                 }
                 return true;
             }
@@ -98,8 +98,8 @@ public class ControlScreen extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()){
-                    case MotionEvent.ACTION_DOWN: new httpConnection().execute("http://"+ finalAddress +":3000/connect/right/1");   break;
-                    case MotionEvent.ACTION_UP: new httpConnection().execute("http://"+ finalAddress +":3000/connect/right/0"); break;
+                    case MotionEvent.ACTION_DOWN: new httpConnection().execute("http://"+ finalAddress +":1381/connect/right/1");   break;
+                    case MotionEvent.ACTION_UP: new httpConnection().execute("http://"+ finalAddress +":1381/connect/right/0"); break;
                 }
                 return true;
             }
@@ -302,7 +302,7 @@ public class ControlScreen extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.menu_reconnect) {
-            new httpConnection().execute("http://"+ address +":3000/test");
+            new httpConnection().execute("http://"+ address +":1381/test");
             return true;
         }
         else if (id == R.id.menu_shutdown){
@@ -314,7 +314,7 @@ public class ControlScreen extends AppCompatActivity {
                     {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            new httpConnection().execute("http://" + address + ":3000/shutdown");
+                            new httpConnection().execute("http://" + address + ":1381/shutdown");
                         }
 
                     })
