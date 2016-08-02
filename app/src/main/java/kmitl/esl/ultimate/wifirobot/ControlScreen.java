@@ -1,16 +1,12 @@
 package kmitl.esl.ultimate.wifirobot;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,10 +15,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -39,10 +31,6 @@ import java.util.Calendar;
 
 public class ControlScreen extends AppCompatActivity {
     String address = "";
-
-    private ProgressDialog pDialog;
-    public static final int progress_bar_type = 0;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -105,16 +93,18 @@ public class ControlScreen extends AppCompatActivity {
             }
         });
 
-        cptBtn.setOnClickListener(new View.OnClickListener() {
+        cptBtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                new DownloadFileFromURL().execute(file_url);
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()){
+                    case MotionEvent.ACTION_DOWN: new DownloadFileFromURL().execute(file_url);break;
+                }
+                return true;
             }
         });
     }
 
     protected class httpConnection extends AsyncTask<String, Integer, String>{
-        ProgressDialog dialog;
         @Override
         protected String doInBackground(String... urls) {
             String parsedString="";
@@ -164,31 +154,6 @@ public class ControlScreen extends AppCompatActivity {
             opt.setText(parsedString);
 
         }
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            super.onProgressUpdate(values);
-            dialog = ProgressDialog.show(ControlScreen.this, "",
-                    "Please wait...", true);
-
-        }
-    }
-
-    @Override
-    protected Dialog onCreateDialog(int id) {
-        switch (id) {
-            case progress_bar_type: // we set this to 0
-                pDialog = new ProgressDialog(this);
-                pDialog.setMessage("Downloading file. Please wait...");
-                pDialog.setIndeterminate(false);
-                pDialog.setMax(100);
-                pDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-                pDialog.setCancelable(true);
-                pDialog.show();
-                return pDialog;
-            default:
-                return null;
-        }
     }
 
     class DownloadFileFromURL extends AsyncTask<String, String, String> {
@@ -205,7 +170,7 @@ public class ControlScreen extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            showDialog(progress_bar_type);
+            new Toast(ControlScreen.this).makeText(ControlScreen.this, "Downloading...", Toast.LENGTH_SHORT);
         }
 
         /**
@@ -216,12 +181,6 @@ public class ControlScreen extends AppCompatActivity {
             int count;
             try {
                 URL url = new URL(f_url[0]);
-                URLConnection conection = url.openConnection();
-                conection.connect();
-
-                // this will be useful so that you can show a tipical 0-100%
-                // progress bar
-                int lenghtOfFile = conection.getContentLength();
 
                 // download the file
                 InputStream input = new BufferedInputStream(url.openStream(),
@@ -234,14 +193,7 @@ public class ControlScreen extends AppCompatActivity {
 
                 byte data[] = new byte[1024];
 
-                long total = 0;
-
                 while ((count = input.read(data)) != -1) {
-                    total += count;
-                    // publishing the progress....
-                    // After this onProgressUpdate will be called
-                    publishProgress("" + (int) ((total * 100) / lenghtOfFile));
-
                     // writing data to file
                     output.write(data, 0, count);
                 }
@@ -261,20 +213,10 @@ public class ControlScreen extends AppCompatActivity {
         }
 
         /**
-         * Updating progress bar
-         * */
-        protected void onProgressUpdate(String... progress) {
-            // setting progress percentage
-            pDialog.setProgress(Integer.parseInt(progress[0]));
-        }
-
-        /**
          * After completing background task Dismiss the progress dialog
          * **/
         @Override
         protected void onPostExecute(String file_url) {
-            // dismiss the dialog after the file was downloaded
-            dismissDialog(progress_bar_type);
             Toast complete = Toast.makeText(ControlScreen.this, "Captured image!\n" + "File name: " + filename + ".jpg", Toast.LENGTH_SHORT);
             complete.show();
         }
